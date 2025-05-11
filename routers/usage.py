@@ -3,7 +3,7 @@ from typing import Dict
 
 router = APIRouter()
 
-# Simulated usage log: {user_id: {api_name: count}}
+# In-memory usage tracker
 USAGE_LOG: Dict[str, Dict[str, int]] = {}
 
 @router.post("/log-usage/{user_id}/{api_name}")
@@ -12,7 +12,7 @@ def log_usage(user_id: str, api_name: str):
         USAGE_LOG[user_id] = {}
 
     USAGE_LOG[user_id][api_name] = USAGE_LOG[user_id].get(api_name, 0) + 1
-    return {"msg": f"Logged access to {api_name} for {user_id}"}
+    return {"msg": f"Logged usage for {user_id} on {api_name}"}
 
 @router.get("/usage/{user_id}")
 def get_usage(user_id: str):
