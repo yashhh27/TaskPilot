@@ -4,6 +4,7 @@ from typing import List, Dict, Optional
 class Plan(BaseModel):
     name: str
     allowed_apis: List[str]
+    usage_limit: int = 10
 
 class Permission(BaseModel):
     plan_name: str
