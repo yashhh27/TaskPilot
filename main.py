@@ -4,6 +4,9 @@ from routers import plans
 from routers import subscriptions
 from routers import access
 from routers import usage
+from routers import dummy_apis
+from routers import ai
+
 app = FastAPI(
     title="TaskPilot X",
     description="AI-enhanced productivity backend with FastAPI",
@@ -16,3 +19,6 @@ app.include_router(plans.router, prefix="/api", tags=["Plans"])
 app.include_router(subscriptions.router, prefix="/api", tags=["Subscriptions"])
 app.include_router(access.router, prefix="/api", tags=["Access"])
 app.include_router(usage.router, prefix="/api", tags=["Usage"])
+app.include_router(usage.router, prefix="/api", tags=["Usage"])
+app.include_router(dummy_apis.router, prefix="/api", tags=["Protected APIs"])
+app.include_router(ai.router, prefix="/api", tags=["AI Features"])
