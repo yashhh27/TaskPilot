@@ -16,3 +16,19 @@ def create_plan(plan: Plan, user_id: str):
 @router.get("/plans")
 def list_plans():
     return list(PLANS.values())
+
+@router.put("/plans/{plan_name}")
+def update_plan(plan_name: str, updated_plan: Plan, user_id: str):
+    require_admin(user_id)
+    if plan_name not in PLANS:
+        raise HTTPException(status_code=404, detail="Plan not found")
+    PLANS[plan_name] = updated_plan
+    return {"msg": f"Plan '{plan_name}' updated"}
+
+@router.delete("/plans/{plan_name}")
+def delete_plan(plan_name: str, user_id: str):
+    require_admin(user_id)
+    if plan_name not in PLANS:
+        raise HTTPException(status_code=404, detail="Plan not found")
+    del PLANS[plan_name]
+    return {"msg": f"Plan '{plan_name}' deleted"}
