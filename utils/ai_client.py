@@ -1,7 +1,17 @@
 import requests
+import httpx
+
+
 
 OLLAMA_URL = "http://localhost:11434/api/generate"
 OLLAMA_MODEL = "llama3"
+async def call_ollama(prompt: str) -> str:
+    async with httpx.AsyncClient() as client:
+        res = await client.post(
+            "http://localhost:11434/api/generate",
+            json={"model": "llama3", "prompt": prompt, "stream": False}
+        )
+        return res.json().get("response", "(No response)")
 
 def decompose_goal_with_ollama(goal: str):
     prompt = f"""
